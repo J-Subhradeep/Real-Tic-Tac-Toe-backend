@@ -29,3 +29,11 @@ class DatabaseMangement:
         print(async_to_sync(self.exist_group)(group_name))
         if SecondClient.objects.filter(group_name=group_name).first():
             SecondClient.objects.get(group_name=group_name).delete()
+
+    @database_sync_to_async
+    def both_user_joined(self, group_name):
+        group = SecondClient.objects.get(group_name=group_name)
+        if group.second_client:
+            return True
+        else:
+            return False

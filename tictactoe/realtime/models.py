@@ -10,3 +10,7 @@ class SecondClient(models.Model):
 
     def __str__(self):
         return f"grp_{self.group_name}, first_c_{self.first_client}, second_c_{self.second_client}"
+class ChannelNames(models.Model):
+    group = models.ForeignKey(SecondClient,on_delete=models.CASCADE)
+    first_client = models.CharField(max_length=200)
+    second_client = models.CharField(max_length=200)
