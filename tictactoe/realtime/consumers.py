@@ -13,6 +13,7 @@ class SecondUserConsumer(AsyncJsonWebsocketConsumer, DatabaseMangement):
         self.kwargs = self.scope["url_route"]["kwargs"]
         exist = await self.exist_group(self.kwargs.get('grp_name'))
         if not exist:
+            print("first")
             await self.create_group(self.kwargs.get('grp_name'), self.kwargs.get('client_name'))
         else:
             first_client = await self.create_and_return_first_client(self.kwargs.get('grp_name'), self.kwargs.get('client_name'))
@@ -26,8 +27,10 @@ class SecondUserConsumer(AsyncJsonWebsocketConsumer, DatabaseMangement):
     async def disconnect(self, close_code):
         print("Webbsocket disconnect...")
         exist = await self.exist_group(self.kwargs.get('grp_name'))
-        if not exist:
-            return
+        await self.channel_layer.group_send(self.kwargs.get('grp_name'), {'type': 'chat.message', 'msg': {'second_client': False}})
+        await self.channel_layer.group_discard(self.kwargs.get('grp_name'), self.channel_name)
+        # if not exist:
+        # return
         await self.delete_group(self.kwargs.get('grp_name'))
 
     async def chat_message(self, event):
