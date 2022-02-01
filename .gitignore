@@ -1,2 +1,3 @@
 tictactoe/realtime/__pycache__
 tictactoe/db.sqlite3
+tictactoe/realtime/migrations/__pycache__
