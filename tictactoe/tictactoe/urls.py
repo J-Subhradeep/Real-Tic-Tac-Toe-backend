@@ -18,5 +18,6 @@ from django.urls import path
 from realtime import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.JoinView.as_view()),
+    path('', views.JoinView.as_view()),
+    path('unique/', views.GenerateRoom.as_view()),
 ]
