@@ -20,4 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.JoinView.as_view()),
     path('unique/', views.GenerateRoom.as_view()),
+    path('secondclient/', views.SecondClientView.as_view()),
+    path('groupdelete/', views.GroupDeleteView.as_view()),
 ]
